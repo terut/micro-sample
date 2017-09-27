@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 
-	pb "github.com/terut/grpc-sample/proto/gen"
+	pb "github.com/terut/micro-sample/proto/gen"
 )
 
 func main() {
