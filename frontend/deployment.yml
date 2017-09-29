@@ -1,0 +1,22 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: micro-sample-frontend-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: micro-sample
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+      - name: micro-sample-frontend
+        image: gcr.io/micro-sample-181209/micro-sample-frontend:v0.1
+        env:
+          - name: BACKEND_SERVICE_NAME
+            value: 10.31.242.159
+        ports:
+          - containerPort: 8080
+            name: http

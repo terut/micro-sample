@@ -8,7 +8,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/terut/grpc-sample/gen"
+	pb "github.com/terut/micro-sample/proto/gen"
 	context "golang.org/x/net/context"
 )
 
