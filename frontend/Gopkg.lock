@@ -17,7 +17,7 @@
   branch = "master"
   name = "github.com/terut/micro-sample"
   packages = ["proto/gen"]
-  revision = "61575e308f6febbfcb9935e6f5887b0d424cfd90"
+  revision = "e11f420cc8040b40518edb9a19bf933fc17c26b1"
 
 [[projects]]
   name = "go.uber.org/atomic"

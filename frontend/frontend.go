@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"go.uber.org/zap"
@@ -19,12 +18,12 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("health check")
 	})
-	http.HandleFunc("/increment", incrementHandler)
+	http.HandleFunc("/word", wordHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 	log.Println("listen started")
 }
 
-func incrementHandler(w http.ResponseWriter, r *http.Request) {
+func wordHandler(w http.ResponseWriter, r *http.Request) {
 	logger, err := zap.NewDevelopment()
 	if err != nil {
 		log.Fatalf("failed to create logger :%v", err)
@@ -45,17 +44,17 @@ func incrementHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	val, err := strconv.Atoi(r.URL.Query().Get("val"))
-	if err != nil {
-		logger.Error("got value error", zap.Error(err))
-	}
-	client := pb.NewCalcClient(conn)
+	val := r.URL.Query().Get("val")
+	//if err != nil {
+	//		logger.Error("got value error", zap.Error(err))
+	//	}
+	client := pb.NewWordClient(conn)
 	ctx := context.Background()
-	res, err := client.Increment(ctx, &pb.NumRequest{Val: int64(val)})
+	res, err := client.Build(ctx, &pb.WordRequest{Val: val})
 	if err != nil {
 		logger.Error("got error from server", zap.Error(err))
 	}
-	logger.Info("got response", zap.Int64("value", res.Val))
+	logger.Info("got response", zap.String("value", res.Val))
 	b, err := json.Marshal(res)
 	if err != nil {
 		logger.Error("json parse error", zap.Error(err))

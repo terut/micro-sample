@@ -26,13 +26,13 @@ func main() {
 		grpc_zap.UnaryServerInterceptor(logger),
 	))
 	grpc_zap.ReplaceGrpcLogger(logger)
-	pb.RegisterCalcServer(server, &CalcService{})
+	pb.RegisterWordServer(server, &WordService{})
 	server.Serve(lis)
 }
 
-type CalcService struct{}
+type WordService struct{}
 
-func (s *CalcService) Increment(ctx context.Context, req *pb.NumRequest) (*pb.NumResponse, error) {
-	req.Val++
-	return &pb.NumResponse{Val: req.Val}, nil
+func (s *WordService) Build(ctx context.Context, req *pb.WordRequest) (*pb.WordResponse, error) {
+	val := req.Val
+	return &pb.WordResponse{Val: fmt.Sprintf("Hello,%s", val)}, nil
 }
