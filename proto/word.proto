@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+service Word {
+  rpc Build (WordRequest) returns (WordResponse) {}
+}
+
+message WordRequest {
+  string val = 1;
+}
+message WordResponse {
+  string val = 1;
+}
