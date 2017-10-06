@@ -16,7 +16,7 @@ spec:
         image: gcr.io/micro-sample-181209/micro-sample-frontend:v0.1
         env:
           - name: BACKEND_SERVICE_NAME
-            value: 10.31.242.159
+            value: micro-sample-service-backend
         ports:
           - containerPort: 8080
             name: http
